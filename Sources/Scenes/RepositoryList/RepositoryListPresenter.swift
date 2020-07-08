@@ -22,7 +22,7 @@ class RepositoryListPresenter: RepositoryListPresentationLogic {
 
     weak var viewController: RepositoryListDisplayLogic?
 
-    // MARK: Do something
+    // MARK: presentRepositories
     func presentRepositories(response: RepositoryList.FetchRepositories.Response) {
         let repositories: [RepositoryList.FetchRepositories.ViewModel.DisplayedRepository] =
             response.repositories.map { repo -> RepositoryList.FetchRepositories.ViewModel.DisplayedRepository in

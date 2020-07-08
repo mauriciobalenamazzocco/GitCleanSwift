@@ -22,11 +22,11 @@ class RepositoryListInteractor: RepositoryListBusinessLogic, RepositoryListDataS
     var presenter: RepositoryListPresentationLogic?
     var repositoryWorker = RepositoryListWorker(repositoriesStore: RepositoryAPI())
 
-    // MARK: Do something
     private var listPage: ListPage<Repository> = ListPage.first(items: [],
                                                                 page: RepositoryAPI.apiRepositoryPath,
                                                                 hasNext: false)
 
+    // MARK: fetchRepositories
     func fetchRepositories(request: RepositoryList.FetchRepositories.Request) {
 
         if request.isReloading {
