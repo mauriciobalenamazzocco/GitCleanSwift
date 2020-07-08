@@ -46,6 +46,7 @@
 		C27AE23D24B526E90031DC87 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27AE23B24B526C40031DC87 /* Helper.swift */; };
 		C27AE23F24B547580031DC87 /* RepositoryApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27AE23E24B547580031DC87 /* RepositoryApiTests.swift */; };
 		C27AE24124B54F480031DC87 /* UserApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27AE24024B54F480031DC87 /* UserApiTests.swift */; };
+		C2A6EAC024B6454E001485FA /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6EABF24B6454E001485FA /* URLSessionProtocol.swift */; };
 		C2CB918224B3D2B100394406 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CB918124B3D2B100394406 /* User.swift */; };
 		F93C9DBC72A5EB2271A68900 /* Pods_GitCleanSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E67BDE2DA957166F0A9A8D5 /* Pods_GitCleanSwiftTests.framework */; };
 /* End PBXBuildFile section */
@@ -119,6 +120,7 @@
 		C27AE23B24B526C40031DC87 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		C27AE23E24B547580031DC87 /* RepositoryApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryApiTests.swift; sourceTree = "<group>"; };
 		C27AE24024B54F480031DC87 /* UserApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiTests.swift; sourceTree = "<group>"; };
+		C2A6EABF24B6454E001485FA /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		C2CB918124B3D2B100394406 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F710B4E05D06210213A16AF1 /* Pods_GitCleanSwift_GitCleanSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCleanSwift_GitCleanSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -199,6 +201,7 @@
 		C2585FD724B35DFD008BD056 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C2A6EABE24B644B3001485FA /* Networking */,
 				C27AE23A24B526740031DC87 /* Helper */,
 				C25BAFFE24B3D5100013E2EF /* Emum */,
 				C258603D24B3917E008BD056 /* Commom */,
@@ -391,6 +394,14 @@
 				C27AE23B24B526C40031DC87 /* Helper.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		C2A6EABE24B644B3001485FA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				C2A6EABF24B6454E001485FA /* URLSessionProtocol.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -694,6 +705,7 @@
 				C258603824B38E4C008BD056 /* R.generated.swift in Sources */,
 				C258603F24B39195008BD056 /* ClassIdentifiable.swift in Sources */,
 				C258601524B36005008BD056 /* RepositoryListRouter.swift in Sources */,
+				C2A6EAC024B6454E001485FA /* URLSessionProtocol.swift in Sources */,
 				C2CB918224B3D2B100394406 /* User.swift in Sources */,
 				C27AE23D24B526E90031DC87 /* Helper.swift in Sources */,
 				C258602324B365BF008BD056 /* ListPages.swift in Sources */,

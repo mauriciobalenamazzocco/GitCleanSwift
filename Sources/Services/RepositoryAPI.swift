@@ -9,6 +9,13 @@
 import Foundation
 
 class RepositoryAPI: RepositoryStoreProtocol {
+
+    let urlSession: URLSession
+
+     init(urlSession: URLSession = URLSession.shared) {
+       self.urlSession = urlSession
+     }
+
     func fetchRepositories(
         url: String,
         completionHandler: @escaping (RespositoriesResponse) -> Void ) {
@@ -18,7 +25,7 @@ class RepositoryAPI: RepositoryStoreProtocol {
             return
         }
 
-        let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let dataTask = urlSession.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completionHandler(.failure(.api(error)))
             } else if let data = data {
@@ -36,7 +43,7 @@ class RepositoryAPI: RepositoryStoreProtocol {
                 completionHandler(.success(listPage))
             }
         }
-        dataTask.resume()
+          dataTask.resume()
     }
 }
 

@@ -9,13 +9,21 @@
 import Foundation
 
 class UserAPI: UserStoreProtocol {
+
+    let urlSession: URLSession
+
+    init(urlSession: URLSession = URLSession.shared) {
+        self.urlSession = urlSession
+    }
+
     func fetchUser(url: String, completionHandler: @escaping (UserResponse) -> Void) {
+
         guard let url = URL(string: url) else {
             completionHandler(.failure(.urlInvalid))
-            return
+            return 
         }
 
-        let dataTask = URLSession.shared.dataTask(with: url) { (data, _, error) in
+        let dataTask = urlSession.dataTask(with: url) { (data, _, error) in
             if let error = error {
                 completionHandler(.failure(.api(error)))
             } else if let data = data {
