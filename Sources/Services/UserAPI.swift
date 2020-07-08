@@ -20,7 +20,7 @@ class UserAPI: UserStoreProtocol {
 
         guard let url = URL(string: url) else {
             completionHandler(.failure(.urlInvalid))
-            return 
+            return
         }
 
         let dataTask = urlSession.dataTask(with: url) { (data, _, error) in
