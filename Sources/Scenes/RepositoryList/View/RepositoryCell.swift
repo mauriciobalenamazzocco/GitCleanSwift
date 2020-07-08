@@ -78,6 +78,8 @@ class RepositoryCell: UITableViewCell, ClassIdentifiable {
         }
     }
 
+    private var requestToken: RequestToken?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -114,6 +116,10 @@ class RepositoryCell: UITableViewCell, ClassIdentifiable {
         starsLabel.text = ""
         repositoryNameLabel.text = ""
         userNameLabel.text = ""
+
+        if let requestToken = requestToken {
+            requestToken.cancel()
+        }
     }
 
     // MARK: - Update Cell Functions
@@ -143,7 +149,7 @@ class RepositoryCell: UITableViewCell, ClassIdentifiable {
 
     private func updateUser(userUrl: String?) {
         guard let url = userUrl else { return }
-        userApi.fetchUser(url: url) { [weak self] result in
+        requestToken = userApi.fetchUser(url: url) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {

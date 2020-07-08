@@ -10,5 +10,5 @@ import Foundation
 
 protocol UserStoreProtocol {
     typealias UserResponse = Result<User?, ServiceError>
-    func fetchUser(url: String, completionHandler: @escaping (UserResponse) -> Void )
+    func fetchUser(url: String, completionHandler: @escaping (UserResponse) -> Void ) -> RequestToken
 }

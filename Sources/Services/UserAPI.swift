@@ -16,11 +16,11 @@ class UserAPI: UserStoreProtocol {
         self.urlSession = urlSession
     }
 
-    func fetchUser(url: String, completionHandler: @escaping (UserResponse) -> Void) {
+    func fetchUser(url: String, completionHandler: @escaping (UserResponse) -> Void) -> RequestToken {
 
         guard let url = URL(string: url) else {
             completionHandler(.failure(.urlInvalid))
-            return
+            return  RequestToken(task: nil)
         }
 
         let dataTask = urlSession.dataTask(with: url) { (data, _, error) in
@@ -34,6 +34,8 @@ class UserAPI: UserStoreProtocol {
                 completionHandler(.success(userResponse))
             }
         }
-        dataTask.resume()
+         dataTask.resume()
+         return RequestToken(task: dataTask)
+
     }
 }

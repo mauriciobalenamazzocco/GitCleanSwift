@@ -47,6 +47,7 @@
 		C27AE23F24B547580031DC87 /* RepositoryApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27AE23E24B547580031DC87 /* RepositoryApiTests.swift */; };
 		C27AE24124B54F480031DC87 /* UserApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27AE24024B54F480031DC87 /* UserApiTests.swift */; };
 		C2A6EAC024B6454E001485FA /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6EABF24B6454E001485FA /* URLSessionProtocol.swift */; };
+		C2A6EAC424B65ECE001485FA /* RequestToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6EAC324B65ECE001485FA /* RequestToken.swift */; };
 		C2CB918224B3D2B100394406 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CB918124B3D2B100394406 /* User.swift */; };
 		F93C9DBC72A5EB2271A68900 /* Pods_GitCleanSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E67BDE2DA957166F0A9A8D5 /* Pods_GitCleanSwiftTests.framework */; };
 /* End PBXBuildFile section */
@@ -121,6 +122,7 @@
 		C27AE23E24B547580031DC87 /* RepositoryApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryApiTests.swift; sourceTree = "<group>"; };
 		C27AE24024B54F480031DC87 /* UserApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiTests.swift; sourceTree = "<group>"; };
 		C2A6EABF24B6454E001485FA /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		C2A6EAC324B65ECE001485FA /* RequestToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestToken.swift; sourceTree = "<group>"; };
 		C2CB918124B3D2B100394406 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F710B4E05D06210213A16AF1 /* Pods_GitCleanSwift_GitCleanSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCleanSwift_GitCleanSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -400,6 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				C2A6EABF24B6454E001485FA /* URLSessionProtocol.swift */,
+				C2A6EAC324B65ECE001485FA /* RequestToken.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				C258602C24B36C51008BD056 /* String+Extension.swift in Sources */,
 				C258601724B36005008BD056 /* RepositoryListViewController.swift in Sources */,
 				C25BAFFD24B3D4E50013E2EF /* UserAPI.swift in Sources */,
+				C2A6EAC424B65ECE001485FA /* RequestToken.swift in Sources */,
 				C258601324B36005008BD056 /* RepositoryListPresenter.swift in Sources */,
 				C258601824B36005008BD056 /* RepositoryListInteractor.swift in Sources */,
 				C258602F24B37E83008BD056 /* AppDelegate.swift in Sources */,
