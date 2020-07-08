@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  GitCleanSwift
+
+  Created by Mauricio Balena Mazzocco on 06/07/20.
+  Copyright © 2020 Mauricio Balena Mazzocco. All rights reserved.
+*/
+"errorTitle" = "OOPS!";
+"apiErrorLimit" = "Limite de requisições atingido. Aguarde =)";
+"ok" = "Ok";
+"invalidUrl" = "URL invalida";
+"repositories" = "Repositorios";
+"tryAgain" = "Tentar novamente";
