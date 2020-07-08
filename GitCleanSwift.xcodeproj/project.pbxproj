@@ -14,7 +14,6 @@
 		C2585FFB24B35DFE008BD056 /* GitCleanSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2585FFA24B35DFE008BD056 /* GitCleanSwiftUITests.swift */; };
 		C258601324B36005008BD056 /* RepositoryListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258600D24B36005008BD056 /* RepositoryListPresenter.swift */; };
 		C258601424B36005008BD056 /* RepositoryListWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258600E24B36005008BD056 /* RepositoryListWorker.swift */; };
-		C258601524B36005008BD056 /* RepositoryListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258600F24B36005008BD056 /* RepositoryListRouter.swift */; };
 		C258601624B36005008BD056 /* RepositoryListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258601024B36005008BD056 /* RepositoryListModels.swift */; };
 		C258601724B36005008BD056 /* RepositoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258601124B36005008BD056 /* RepositoryListViewController.swift */; };
 		C258601824B36005008BD056 /* RepositoryListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258601224B36005008BD056 /* RepositoryListInteractor.swift */; };
@@ -89,7 +88,6 @@
 		C2585FFC24B35DFE008BD056 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C258600D24B36005008BD056 /* RepositoryListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListPresenter.swift; sourceTree = "<group>"; };
 		C258600E24B36005008BD056 /* RepositoryListWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListWorker.swift; sourceTree = "<group>"; };
-		C258600F24B36005008BD056 /* RepositoryListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListRouter.swift; sourceTree = "<group>"; };
 		C258601024B36005008BD056 /* RepositoryListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListModels.swift; sourceTree = "<group>"; };
 		C258601124B36005008BD056 /* RepositoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListViewController.swift; sourceTree = "<group>"; };
 		C258601224B36005008BD056 /* RepositoryListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListInteractor.swift; sourceTree = "<group>"; };
@@ -276,7 +274,6 @@
 				C258602D24B36F8A008BD056 /* View */,
 				C258600D24B36005008BD056 /* RepositoryListPresenter.swift */,
 				C258600E24B36005008BD056 /* RepositoryListWorker.swift */,
-				C258600F24B36005008BD056 /* RepositoryListRouter.swift */,
 				C258601024B36005008BD056 /* RepositoryListModels.swift */,
 				C258601124B36005008BD056 /* RepositoryListViewController.swift */,
 				C258601224B36005008BD056 /* RepositoryListInteractor.swift */,
@@ -708,7 +705,6 @@
 				C258602924B3693C008BD056 /* ApiCollectionResponseCodable.swift in Sources */,
 				C258603824B38E4C008BD056 /* R.generated.swift in Sources */,
 				C258603F24B39195008BD056 /* ClassIdentifiable.swift in Sources */,
-				C258601524B36005008BD056 /* RepositoryListRouter.swift in Sources */,
 				C2A6EAC024B6454E001485FA /* URLSessionProtocol.swift in Sources */,
 				C2CB918224B3D2B100394406 /* User.swift in Sources */,
 				C27AE23D24B526E90031DC87 /* Helper.swift in Sources */,
