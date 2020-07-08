@@ -206,17 +206,14 @@
 				C258603D24B3917E008BD056 /* Commom */,
 				C258603A24B38E8D008BD056 /* Config */,
 				C258603624B38CCE008BD056 /* Resources */,
-				C258602E24B37E83008BD056 /* AppDelegate.swift */,
 				C258602A24B36C20008BD056 /* Extension */,
-				C258602824B3693C008BD056 /* ApiCollectionResponseCodable.swift */,
-				C258602024B365BE008BD056 /* ListPages.swift */,
 				C258600B24B35E7D008BD056 /* Scenes */,
 				C258600924B35E67008BD056 /* Services */,
 				C258600824B35E5E008BD056 /* Models */,
 				C2585FE124B35DFE008BD056 /* Assets.xcassets */,
+				C258602E24B37E83008BD056 /* AppDelegate.swift */,
 				C2585FE324B35DFE008BD056 /* LaunchScreen.storyboard */,
 				C2585FE624B35DFE008BD056 /* Info.plist */,
-				C25BB01424B409830013E2EF /* Localizable.strings */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -305,6 +302,7 @@
 		C258603624B38CCE008BD056 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C25BB01424B409830013E2EF /* Localizable.strings */,
 				C258603724B38E4C008BD056 /* R.generated.swift */,
 			);
 			path = Resources;
@@ -321,6 +319,8 @@
 		C258603D24B3917E008BD056 /* Commom */ = {
 			isa = PBXGroup;
 			children = (
+				C258602824B3693C008BD056 /* ApiCollectionResponseCodable.swift */,
+				C258602024B365BE008BD056 /* ListPages.swift */,
 				C258603E24B39195008BD056 /* ClassIdentifiable.swift */,
 			);
 			path = Commom;
