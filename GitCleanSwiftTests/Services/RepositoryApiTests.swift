@@ -55,12 +55,12 @@ class RepositoryAPITests: XCTestCase
 
     func setupRepositoryApiStore()
     {
-        repositoryStoreProtocol = RepositoryAPISpy()
+        repositoryStoreProtocol = RepositoryAPIMock()
     }
 
     // MARK: - Test doubles
 
-      class RepositoryAPISpy: RepositoryAPI
+      class RepositoryAPIMock: RepositoryAPI
       {
           // MARK: Method call expectations
           override func fetchRepositories(url: String, completionHandler: @escaping (RespositoriesResponse) -> Void) {

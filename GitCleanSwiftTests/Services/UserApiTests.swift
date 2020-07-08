@@ -56,12 +56,12 @@ class UserAPITests: XCTestCase
 
     func setupUserApiStore()
     {
-        userStoreProtocol = UserAPISpy()
+        userStoreProtocol = UserAPIMock()
     }
 
     // MARK: - Test doubles
 
-    class UserAPISpy: UserAPI
+    class UserAPIMock: UserAPI
     {
         // MARK: Method call expectations
         override func fetchUser(url: String, completionHandler: @escaping (UserAPI.UserResponse) -> Void) {
