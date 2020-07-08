@@ -36,6 +36,5 @@ class UserAPI: UserStoreProtocol {
         }
          dataTask.resume()
          return RequestToken(task: dataTask)
-
     }
 }
