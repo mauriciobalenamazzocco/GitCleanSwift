@@ -251,7 +251,7 @@ extension RepositoryListViewController {
 
 extension RepositoryListViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-
+        // Prefetch user names ???? humm maybe
         indexPaths
             .map { displayedRepositories[$0.row] }
             .forEach { model in

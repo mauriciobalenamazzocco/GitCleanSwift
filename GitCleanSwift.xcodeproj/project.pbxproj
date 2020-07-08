@@ -31,7 +31,6 @@
 		C258603F24B39195008BD056 /* ClassIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C258603E24B39195008BD056 /* ClassIdentifiable.swift */; };
 		C25BAFFD24B3D4E50013E2EF /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25BAFFC24B3D4E50013E2EF /* UserAPI.swift */; };
 		C25BB00024B3D5690013E2EF /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25BAFFF24B3D5690013E2EF /* ServiceError.swift */; };
-		C25BB00224B3D6520013E2EF /* RepositoryStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25BB00124B3D6520013E2EF /* RepositoryStoreProtocol.swift */; };
 		C25BB00424B3D6900013E2EF /* UserStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25BB00324B3D6900013E2EF /* UserStoreProtocol.swift */; };
 		C25BB00F24B3FA450013E2EF /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25BB00E24B3FA450013E2EF /* State.swift */; };
 		C25BB01224B409830013E2EF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C25BB01424B409830013E2EF /* Localizable.strings */; };
@@ -105,7 +104,6 @@
 		C258603E24B39195008BD056 /* ClassIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassIdentifiable.swift; sourceTree = "<group>"; };
 		C25BAFFC24B3D4E50013E2EF /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		C25BAFFF24B3D5690013E2EF /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
-		C25BB00124B3D6520013E2EF /* RepositoryStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryStoreProtocol.swift; sourceTree = "<group>"; };
 		C25BB00324B3D6900013E2EF /* UserStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStoreProtocol.swift; sourceTree = "<group>"; };
 		C25BB00E24B3FA450013E2EF /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		C25BB01324B409830013E2EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -255,8 +253,6 @@
 			children = (
 				C258602624B36625008BD056 /* RepositoryAPI.swift */,
 				C25BAFFC24B3D4E50013E2EF /* UserAPI.swift */,
-				C25BB00124B3D6520013E2EF /* RepositoryStoreProtocol.swift */,
-				C25BB00324B3D6900013E2EF /* UserStoreProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -319,6 +315,7 @@
 		C258603D24B3917E008BD056 /* Commom */ = {
 			isa = PBXGroup;
 			children = (
+				C25BB00324B3D6900013E2EF /* UserStoreProtocol.swift */,
 				C258602824B3693C008BD056 /* ApiCollectionResponseCodable.swift */,
 				C258602024B365BE008BD056 /* ListPages.swift */,
 				C258603E24B39195008BD056 /* ClassIdentifiable.swift */,
@@ -679,7 +676,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C25BB00224B3D6520013E2EF /* RepositoryStoreProtocol.swift in Sources */,
 				C25BB00024B3D5690013E2EF /* ServiceError.swift in Sources */,
 				C25BB00424B3D6900013E2EF /* UserStoreProtocol.swift in Sources */,
 				C25BB00F24B3FA450013E2EF /* State.swift in Sources */,

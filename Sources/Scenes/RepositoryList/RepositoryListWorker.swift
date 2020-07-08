@@ -12,6 +12,12 @@
 
 import UIKit
 
+protocol RepositoryStoreProtocol {
+    typealias RespositoriesResponse = Result<ListPage<Repository>, ServiceError>
+
+    func fetchRepositories(url: String, completionHandler: @escaping (RespositoriesResponse) -> Void )
+}
+
 class RepositoryListWorker: RepositoryStoreProtocol {
     var repositoriesStore: RepositoryStoreProtocol
 
