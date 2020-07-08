@@ -64,10 +64,12 @@ class UserAPITests: XCTestCase
     class UserAPIMock: UserAPI
     {
         // MARK: Method call expectations
-        override func fetchUser(url: String, completionHandler: @escaping (UserAPI.UserResponse) -> Void) {
+        override func fetchUser(url: String, completionHandler: @escaping (UserAPI.UserResponse) -> Void) -> RequestToken {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 completionHandler(UserAPITests.testUserResponse)
+
             }
+               return RequestToken(task: nil)
         }
 
     }
