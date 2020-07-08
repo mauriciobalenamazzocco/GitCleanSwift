@@ -76,7 +76,7 @@ class UserAPITests: XCTestCase
 
     // MARK: - Test
 
-    func testFetchRepositoriesShouldReturnListOfRepositories()
+    func test_FetchRepositoriesShouldReturnListOfRepositories()
     {
         // Given
 
@@ -104,7 +104,7 @@ class UserAPITests: XCTestCase
 
     }
 
-    func testFetchUserShouldReturnError()
+    func test_FetchUserShouldReturnError()
     {
         // Given
 
