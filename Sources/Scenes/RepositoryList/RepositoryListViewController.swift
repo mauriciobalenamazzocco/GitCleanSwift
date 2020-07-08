@@ -62,7 +62,7 @@ class RepositoryListViewController: UIViewController, RepositoryListDisplayLogic
         }
     }
 
-    // MARK: View lifecycle
+    // MARK: Views
 
     internal lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -78,13 +78,6 @@ class RepositoryListViewController: UIViewController, RepositoryListDisplayLogic
         table.register(RepositoryCell.self, forCellReuseIdentifier: RepositoryCell.reuseId)
         table.tableFooterView = nextPageProgressIndicator
         return table
-    }()
-
-    private lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        refreshControl.tintColor = R.color.gitBlue()
-        return refreshControl
     }()
 
     private lazy var nextPageProgressIndicator: UIActivityIndicatorView = {
@@ -104,10 +97,22 @@ class RepositoryListViewController: UIViewController, RepositoryListDisplayLogic
         return progress
     }()
 
+    // MARK: Controls
+
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refreshControl.tintColor = R.color.gitBlue()
+        return refreshControl
+    }()
+
+    // MARK: View lifecycle
+
     internal  var displayedRepositories: [RepositoryList.FetchRepositories.ViewModel.DisplayedRepository] = []
     private var hasMoreItems = false
     private var state: State = .idle
     private var showingAlert = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = NSLocalizedString("repositories", comment: "")
