@@ -25,6 +25,7 @@ class RepositoryListViewController: UIViewController, RepositoryListDisplayLogic
     var router: (NSObjectProtocol & RepositoryListRoutingLogic & RepositoryListDataPassing)?
 
     // MARK: Object lifecycle
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -249,9 +250,10 @@ extension RepositoryListViewController {
     }
 }
 
+// MARK: UITableViewDataSourcePrefetching
+
 extension RepositoryListViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        // Prefetch user names ???? humm maybe
         indexPaths
             .map { displayedRepositories[$0.row] }
             .forEach { model in
@@ -261,6 +263,8 @@ extension RepositoryListViewController: UITableViewDataSourcePrefetching {
             }
     }
 }
+
+// MARK: UITableViewDataSource
 
 extension RepositoryListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -280,6 +284,9 @@ extension RepositoryListViewController: UITableViewDataSource {
         return 1
     }
 }
+
+// MARK: UITableViewDelegate
+
 extension RepositoryListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if  hasMoreItems && indexPath.row >= displayedRepositories.count - 15 && state == .loadedPage {
