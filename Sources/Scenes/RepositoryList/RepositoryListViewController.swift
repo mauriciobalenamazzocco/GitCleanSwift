@@ -161,7 +161,7 @@ class RepositoryListViewController: UIViewController, RepositoryListDisplayLogic
             .reduce([IndexPath](), { (acc, t) in
                 return acc + [IndexPath(row: t.offset + self.displayedRepositories.count, section: 0)]
             })
-        
+
         let displayedRepositoriesCount = displayedRepositories.count
         displayedRepositories.append(contentsOf: repositories)
 
