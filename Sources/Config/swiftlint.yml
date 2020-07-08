@@ -1,0 +1,37 @@
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+    - ../Pods
+    - ../Frameworks
+    - ../Products
+    - ../../DerivedData
+    - ../Sources/Resources/R.generated.swift
+line_length: 150
+function_body_length: 100
+force_cast: error # implicitly
+force_try:
+    severity: error # explicitly
+identifier_name:
+    excluded:
+        - id
+disabled_rules:
+    - identifier_name
+    - object_literal
+    - xctfail_message
+    - nesting
+# Find all the available rules by running:
+# swiftlint rules
+opt_in_rules:
+    - empty_count
+    - explicit_init
+    - closure_spacing
+    - overridden_super_call
+    - redundant_nil_coalescing
+    - private_outlet
+    - nimble_operator
+    - attributes
+    - operator_usage_whitespace
+    - closure_end_indentation
+    - first_where
+    - object_literal
+    - prohibited_super_call
+private_outlet:
+    allow_private_set: true
