@@ -86,7 +86,7 @@ class UserAPITests: XCTestCase
 
         let expect = expectation(description: "Wait for fetchRepositories to return")
 
-        userStoreProtocol.fetchUser(url: "fakeURL") { result in
+        let _ = userStoreProtocol.fetchUser(url: "fakeURL") { result in
             switch result {
             case .success(let user):
                 userFetched = user
@@ -114,7 +114,7 @@ class UserAPITests: XCTestCase
 
         let expect = expectation(description: "Wait for fetchRepositories() to return")
 
-        userStoreProtocol.fetchUser(url: "fakeURL") { result in
+        let _ = userStoreProtocol.fetchUser(url: "fakeURL") { result in
             switch result {
             case .success( _): break
             case .failure( let error ):
