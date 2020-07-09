@@ -16,7 +16,10 @@ class UserAPITests: XCTestCase
     // MARK: - Subject under test
 
     var userStoreProtocol: UserStoreProtocol!
+
     static var testUserResponse: Result<User?, ServiceError>!
+
+    static var testURLSessionDataTaskSpy = URLSessionDataTaskSpy()
 
     //MARK: - Mock
 
@@ -61,6 +64,20 @@ class UserAPITests: XCTestCase
 
     // MARK: - Test doubles
 
+    class URLSessionDataTaskSpy: URLSessionDataTask {
+        var cancelCalled = false
+        var resumeCalled = false
+        override init () {}
+
+        override func cancel() {
+            cancelCalled = true
+        }
+
+        override func resume() {
+            resumeCalled = true
+        }
+    }
+
     class UserAPIMock: UserAPI
     {
         // MARK: Method call expectations
@@ -69,7 +86,7 @@ class UserAPITests: XCTestCase
                 completionHandler(UserAPITests.testUserResponse)
 
             }
-            return RequestToken(task: nil)
+            return RequestToken(task: testURLSessionDataTaskSpy)
         }
 
     }
@@ -103,6 +120,22 @@ class UserAPITests: XCTestCase
         XCTAssertEqual(userFetched, userTest, "Test User")
 
     }
+
+    func test_FetchUserShouldCancel()
+    {
+        // Given
+
+        // When
+        setupSucess()
+
+        let requestToken = userStoreProtocol.fetchUser(url: "fakeURL") { _ in }
+
+        let task = requestToken.task as? URLSessionDataTaskSpy
+        requestToken.cancel()
+
+        XCTAssert(task!.cancelCalled)
+    }
+
 
     func test_FetchUserShouldReturnParseError()
     {
