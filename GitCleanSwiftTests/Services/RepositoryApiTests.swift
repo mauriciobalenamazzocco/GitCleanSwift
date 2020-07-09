@@ -122,16 +122,8 @@ class RepositoryAPITests: XCTestCase
 
         waitForExpectations(timeout: 1.2)
 
-        var serviceErrorExpect: ServiceError!
-        switch RepositoryAPITests.testRepositoryResponse {
-        case .failure(let error):
-            serviceErrorExpect = error
-        case .success(_ ): break
-        case .none: break
-        }
-
         // Then
-        XCTAssertEqual(serviceErrorExpect, serviceErrorResult, "Test error is the same type")
+        XCTAssertEqual(.parse, serviceErrorResult, "Test error is the same type")
     }
 
     func testFetchRepositoriesShouldReturnApiError()
@@ -152,16 +144,8 @@ class RepositoryAPITests: XCTestCase
 
         waitForExpectations(timeout: 1.2)
 
-        var serviceErrorExpect: ServiceError!
-        switch RepositoryAPITests.testRepositoryResponse {
-        case .failure(let error):
-            serviceErrorExpect = error
-        case .success(_ ): break
-        case .none: break
-        }
-
         // Then
-        XCTAssertEqual(serviceErrorExpect, serviceErrorResult, "Test error is the same type")
+        XCTAssertEqual(.api(NSError(domain: "Error 404", code: 404, userInfo: [:])), serviceErrorResult, "Test error is the same type")
     }
 
     func testFetchRepositoriesShouldReturnInvalidUrlError()
@@ -182,15 +166,7 @@ class RepositoryAPITests: XCTestCase
 
            waitForExpectations(timeout: 1.2)
 
-           var serviceErrorExpect: ServiceError!
-           switch RepositoryAPITests.testRepositoryResponse {
-           case .failure(let error):
-               serviceErrorExpect = error
-           case .success(_ ): break
-           case .none: break
-           }
-
-           // Then
-           XCTAssertEqual(serviceErrorExpect, serviceErrorResult, "Test error is the same type")
-       }
+        // Then
+        XCTAssertEqual(.urlInvalid, serviceErrorResult, "Test error is the same type")
+    }
 }
