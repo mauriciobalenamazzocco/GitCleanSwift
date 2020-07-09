@@ -20,13 +20,18 @@ platform :ios do
   lane :tests do
     scan(workspace: "GitCleanSwift.xcworkspace", device: "iPhone 8", scheme: "GitCleanSwift", code_coverage: true)
   
+coverage_files_to_ignore = [
+    'Sources/Resources/*',
+    'Pods/*',
+]
+
   slather(
       output_directory: "fastlane/html",
       workspace: "GitCleanSwift.xcworkspace",
       html: true,
       scheme: "GitCleanSwift",
       proj: "GitCleanSwift.xcodeproj",
-      ignore: [ "R.generated.swift", "Pods/*"],
+      ignore: coverage_files_to_ignore,
       verbose: true,
       show: true
   )
