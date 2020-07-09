@@ -91,7 +91,39 @@ class RepositoryListViewControllerTests: XCTestCase
         XCTAssert(repositoryListBusinessLogicSpy.fetchRepositoriesCall)
     }
 
+
+    func test_FetchedRepositoriesStateIddle()
+    {
+
+          XCTAssertEqual(repositoryListViewController.state, .idle)
+        
+
+    }
+
+    func test_FetchedRepositoriesDidAppearState()
+    {
+        // Given
+        loadView()
+
+        // When
+        repositoryListViewController.viewDidAppear(true)
+
+        // Then
+          XCTAssertEqual(repositoryListViewController.state, .loadingPage)
+    }
+
     func test_FetchedRepositoriesDisplay()
+    {
+        let displayRepository = RepositoryList.FetchRepositories.ViewModel.DisplayedRepository(repoName: "repoName", userAvatarPath: "avatarName", repoStarsCount: "repoStarCount", userProfilePath: "userProfilePath")
+        let displayedRepositories = [displayRepository]
+        let viewModel = RepositoryList.FetchRepositories.ViewModel(displayedRepositories: displayedRepositories, isReloading: false, hasNext: false)
+        repositoryListViewController.displayRepositories(viewModel: viewModel)
+
+        // Then
+        XCTAssertEqual(repositoryListViewController.state, .loadedPage)
+    }
+
+    func test_FetchedRepositoriesStateLoaded()
     {
         // Given
         let tableViewSpy = TableViewSpy()

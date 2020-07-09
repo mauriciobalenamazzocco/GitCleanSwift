@@ -93,7 +93,7 @@ class RepositoryListViewController: UIViewController, RepositoryListDisplayLogic
 
     internal  var displayedRepositories: [RepositoryList.FetchRepositories.ViewModel.DisplayedRepository] = []
     private var hasMoreItems = false
-    private var state: State = .idle
+    internal var state: State = .idle
     private var showingAlert = false
 
     override func viewDidLoad() {
