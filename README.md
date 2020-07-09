@@ -8,3 +8,7 @@ Built using XCode 11.5(Swift 5)
 1. Open shell window and navigate to project folder
 1. Run `pod install`
 1. Open `GitCleanSwift.xcworkspace` and run the project on selected device or simulator
+
+### How to run the Tests?
+1. Open shell window and navigate to project folder
+1. Run `bundle exec fastlane tests`
