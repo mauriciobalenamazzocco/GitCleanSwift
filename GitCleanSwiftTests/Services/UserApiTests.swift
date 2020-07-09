@@ -69,7 +69,7 @@ class UserAPITests: XCTestCase
                 completionHandler(UserAPITests.testUserResponse)
 
             }
-               return RequestToken(task: nil)
+            return RequestToken(task: nil)
         }
 
     }
@@ -110,6 +110,7 @@ class UserAPITests: XCTestCase
 
         //When
         setupFail(serviceError: .parse)
+
         var serviceErrorResult: ServiceError!
 
         let expect = expectation(description: "Wait for fetchRepositories() to return")
@@ -125,81 +126,57 @@ class UserAPITests: XCTestCase
 
         waitForExpectations(timeout: 1.2)
 
-        var serviceErrorExpect: ServiceError!
-        switch UserAPITests.testUserResponse {
-        case .failure(let error):
-            serviceErrorExpect = error
-        case .success(_ ): break
-        case .none: break
-        }
-
         // Then
-        XCTAssertEqual(serviceErrorExpect, serviceErrorResult, "Test error is the same type")
+        XCTAssertEqual(.parse, serviceErrorResult, "Test error is the same type")
     }
 
     func test_FetchUserShouldReturnUrlInvalidError()
-      {
-          // Given
+    {
+        // Given
 
-          //When
-          setupFail(serviceError: .urlInvalid)
-          var serviceErrorResult: ServiceError!
+        //When
+        setupFail(serviceError: .urlInvalid)
+        var serviceErrorResult: ServiceError!
 
-          let expect = expectation(description: "Wait for fetchRepositories() to return")
+        let expect = expectation(description: "Wait for fetchRepositories() to return")
 
-          let _ = userStoreProtocol.fetchUser(url: "fakeURL") { result in
-              switch result {
-              case .success( _): break
-              case .failure( let error ):
-                  serviceErrorResult = error
-                  expect.fulfill()
-              }
-          }
+        let _ = userStoreProtocol.fetchUser(url: "fakeURL") { result in
+            switch result {
+            case .success( _): break
+            case .failure( let error ):
+                serviceErrorResult = error
+                expect.fulfill()
+            }
+        }
 
-          waitForExpectations(timeout: 1.2)
+        waitForExpectations(timeout: 1.2)
 
-          var serviceErrorExpect: ServiceError!
-          switch UserAPITests.testUserResponse {
-          case .failure(let error):
-              serviceErrorExpect = error
-          case .success(_ ): break
-          case .none: break
-          }
-
-          // Then
-          XCTAssertEqual(serviceErrorExpect, serviceErrorResult, "Test error is the same type")
-      }
+        // Then
+        XCTAssertEqual(.urlInvalid, serviceErrorResult, "Test error is the same type")
+    }
 
     func test_FetchUserShouldReturnApiError()
-         {
-             // Given
+    {
+        // Given
+        //When
+        setupFail(serviceError: .api(NSError(domain: "NOT FOUND", code: 404, userInfo: [:])))
 
-             //When
-            setupFail(serviceError: .api(NSError(domain: "NOT FOUND", code: 404, userInfo: [:])))
-             var serviceErrorResult: ServiceError!
+        var serviceErrorResult: ServiceError!
 
-             let expect = expectation(description: "Wait for fetchRepositories() to return")
+        let expect = expectation(description: "Wait for fetchRepositories() to return")
 
-             let _ = userStoreProtocol.fetchUser(url: "fakeURL") { result in
-                 switch result {
-                 case .success( _): break
-                 case .failure( let error ):
-                     serviceErrorResult = error
-                     expect.fulfill()
-                 }
-             }
+        let _ = userStoreProtocol.fetchUser(url: "fakeURL") { result in
+            switch result {
+            case .success( _): break
+            case .failure( let error ):
+                serviceErrorResult = error
+                expect.fulfill()
+            }
+        }
 
-             waitForExpectations(timeout: 1.2)
+        waitForExpectations(timeout: 1.2)
 
-             var serviceErrorExpect: ServiceError!
-             switch UserAPITests.testUserResponse {
-             case .failure(let error):
-                 serviceErrorExpect = error
-             case .success(_ ): break
-             case .none: break
-             }
-
-             // Then
-             XCTAssertEqual(serviceErrorExpect, serviceErrorResult, "Test error is the same type")
-         }
+        // Then
+        XCTAssertEqual(.api(NSError(domain: "NOT FOUND", code: 404, userInfo: [:])), serviceErrorResult, "Test error is the same type")
+    }
 }
