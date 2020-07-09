@@ -10,9 +10,9 @@ import Foundation
 
 class RepositoryAPI: RepositoryStoreProtocol {
 
-    let urlSession: URLSession
+    let urlSession: URLSessionProtocol
 
-     init(urlSession: URLSession = URLSession.shared) {
+     init(urlSession: URLSessionProtocol = URLSession.shared) {
        self.urlSession = urlSession
      }
 
@@ -25,7 +25,7 @@ class RepositoryAPI: RepositoryStoreProtocol {
             return
         }
 
-        let dataTask = urlSession.dataTask(with: url) { (data, response, error) in
+        let dataTask = urlSession.dataTask(with: URLRequest(url: url)) { (data, response, error) in
             if let error = error {
                 completionHandler(.failure(.api(error)))
             } else if let data = data {

@@ -10,9 +10,9 @@ import Foundation
 
 class UserAPI: UserStoreProtocol {
 
-    let urlSession: URLSession
+    let urlSession: URLSessionProtocol
 
-    init(urlSession: URLSession = URLSession.shared) {
+    init(urlSession: URLSessionProtocol = URLSession.shared) {
         self.urlSession = urlSession
     }
 
@@ -23,7 +23,7 @@ class UserAPI: UserStoreProtocol {
             return  RequestToken(task: nil)
         }
 
-        let dataTask = urlSession.dataTask(with: url) { (data, _, error) in
+        let dataTask = urlSession.dataTask(with: URLRequest(url: url)) { (data, _, error) in
             if let error = error {
                 completionHandler(.failure(.api(error)))
             } else if let data = data {
