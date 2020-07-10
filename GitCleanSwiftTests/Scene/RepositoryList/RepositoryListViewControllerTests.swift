@@ -101,6 +101,19 @@ class RepositoryListViewControllerTests: XCTestCase
 
     }
 
+
+    func test_FetchedRepositoriesDidAppearStateNotEqual()
+    {
+        // Given
+        loadView()
+
+        // When
+        repositoryListViewController.viewDidAppear(true)
+
+        // Then
+        XCTAssertNotEqual(repositoryListViewController.state, .idle)
+    }
+
     func test_FetchedRepositoriesDidAppearState()
     {
         // Given
