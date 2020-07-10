@@ -39,7 +39,13 @@ class RepositoryAPI: RepositoryStoreProtocol {
                 }
                 let nextUrl = httpResponse.allHeaderFields["Link"] as? String
                 let list = nextUrl?.extractUrl()
-                let listPage = ListPage(items: colectionResponse.items, page: list ?? "", hasNext: list != nil)
+
+                guard let nextUrlList = list else {
+                    completionHandler(.failure(.parse))
+                    return
+                }
+
+                let listPage = ListPage(items: colectionResponse.items, page: nextUrlList, hasNext: list != nil)
                 completionHandler(.success(listPage))
             }
         }
