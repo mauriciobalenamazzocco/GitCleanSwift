@@ -156,6 +156,21 @@ class RepositoryListPresenterTests: XCTestCase
         XCTAssertEqual(repositoryListDisplayLogicSpy.errorViewModel.errorString, NSLocalizedString("invalidUrl", comment: ""))
     }
 
+    func test_ShouldReturnErrorTypeApiError()
+      {
+          // Given
+          let repositoryListDisplayLogicSpy = RepositoryListDisplayLogicSpy()
+          repositoryListPresenter.viewController = repositoryListDisplayLogicSpy
+
+          // When
+        let response = RepositoryList.Error.Response(serviceError: .api(NSError(domain: "Error 404", code: 404, userInfo: [:])))
+          repositoryListPresenter.presentError(response: response)
+
+          // Then
+        let errorExpected =  NSError(domain: "Error 404", code: 404, userInfo: [:])
+        XCTAssertEqual(repositoryListDisplayLogicSpy.errorViewModel.errorString ,errorExpected.localizedDescription)
+      }
+
 
     func test_ShouldReturnErrorCalled()
     {

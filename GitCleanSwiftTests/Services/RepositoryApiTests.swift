@@ -14,7 +14,6 @@ class RepositoryAPITests: XCTestCase
     // MARK: - Subject under test
 
     var repositoryStoreProtocol: RepositoryStoreProtocol!
-    static var testRepositoryResponse: Result<ListPage<Repository>, ServiceError>!
 
     //MARK: - Mock
 
@@ -31,7 +30,6 @@ class RepositoryAPITests: XCTestCase
     override func setUp()
     {
         super.setUp()
-        setupRepositoryApiStore()
     }
 
     override func tearDown()
@@ -39,46 +37,51 @@ class RepositoryAPITests: XCTestCase
         super.tearDown()
     }
 
-    // MARK: - Test setup
+    class URLSessionDataTaskSpy: URLSessionDataTask {
+        var cancelCalled = false
+        var resumeCalled = false
+        override init () {}
 
-    func setupSucess() {
-        guard let colectionResponse = try? JSONDecoder().decode(ApiCollectionResponseCodable<Repository>.self, from: getJsonMock()) else {
-            return XCTFail()
+        override func cancel() {
+            cancelCalled = true
         }
-        let listPageMock = ListPage(items: colectionResponse.items, page: "fakepage", hasNext: false)
-        RepositoryAPITests.testRepositoryResponse = .success(listPageMock)
+
+        override func resume() {
+            resumeCalled = true
+        }
     }
 
-    func setupFail(serviceError: ServiceError) {
-        RepositoryAPITests.testRepositoryResponse = .failure(serviceError)
+
+
+    class URLSessionMock: URLSessionProtocol {
+        var data: Data?
+        var error: Error?
+        var urlResponse: URLResponse?
+
+        func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+            completionHandler(data, urlResponse, error)
+            return  URLSessionDataTaskSpy()
+        }
     }
-
-    func setupRepositoryApiStore()
-    {
-        repositoryStoreProtocol = RepositoryAPIMock()
-    }
-
-    // MARK: - Test doubles
-
-      class RepositoryAPIMock: RepositoryAPI
-      {
-          // MARK: Method call expectations
-          override func fetchRepositories(url: String, completionHandler: @escaping (RespositoriesResponse) -> Void) {
-
-              DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                  completionHandler(RepositoryAPITests.testRepositoryResponse)
-              }
-          }
-      }
 
     // MARK: - Test
 
     func testFetchRepositoriesShouldReturnListOfRepositories()
     {
         // Given
+        let urlSessionMock = URLSessionMock()
+        urlSessionMock.data = getJsonMock()
+        urlSessionMock.urlResponse = HTTPURLResponse(
+            url: URL(string: RepositoryAPI.apiRepositoryPath )!,
+            statusCode: 200 ,
+            httpVersion: "",
+            headerFields: ["Link":"<https://api.github.com/search/repositories?q=language%3Aswift&sort=stars&page=2>;rel=\'next\', <https://api.github.com/search/repositories?q=language%3Aswift&sort=stars&page=34>; rel=\'last\'"])
 
         // When
-        setupSucess()
+
+        repositoryStoreProtocol =  RepositoryAPI(urlSession: urlSessionMock)
+
+
         var pageFetched = ListPage<Repository>(items: [], page: "fakepage", hasNext: false)
 
         let expect = expectation(description: "Wait for fetchRepositories to return")
@@ -94,21 +97,72 @@ class RepositoryAPITests: XCTestCase
 
         waitForExpectations(timeout: 1.2)
 
-        let reposTest = try! RepositoryAPITests.testRepositoryResponse.get()
-
         // Then
-        XCTAssertEqual(pageFetched.currentPage, "fakepage", "Test page")
-        XCTAssertEqual(pageFetched.items.count, reposTest.items.count, "fetchRepositories() should return a list of pages, pages contain itens of repository")
-        for repo in pageFetched.items {
-            XCTAssert(reposTest.items.contains(repo), "Fetched repositories should be the same  ")
-        }
+        XCTAssertEqual(pageFetched.currentPage, "https://api.github.com/search/repositories?q=language%3Aswift&sort=stars&page=2", "Test page")
+        XCTAssertEqual(pageFetched.items.count, 30, "fetchRepositories() should return a list of pages, pages contain itens of repository")
+
     }
 
     func testFetchRepositoriesShouldReturnParseError()
     {
         // Given
+        let urlSessionMock = URLSessionMock()
+        urlSessionMock.data = Data()
+
         //When
-        setupFail(serviceError: .parse)
+        repositoryStoreProtocol =  RepositoryAPI(urlSession: urlSessionMock)
+
+        var serviceErrorResult: ServiceError!
+        let expect = expectation(description: "Wait for fetchRepositories() to return")
+        repositoryStoreProtocol.fetchRepositories(url: "fakeURL") { result in
+            switch result {
+            case .success( _): break
+            case .failure( let error ):
+                serviceErrorResult = error
+                expect.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: 1.2)
+
+        // Then
+        XCTAssertEqual(.parse, serviceErrorResult, "Test error is the same type")
+    }
+
+    func testFetchRepositoriesShouldReturnInvalidUrl()
+    {
+        // Given
+        let urlSessionMock = URLSessionMock()
+
+        //When
+        repositoryStoreProtocol =  RepositoryAPI(urlSession: urlSessionMock)
+
+        var serviceErrorResult: ServiceError!
+        let expect = expectation(description: "Wait for fetchRepositories() to return")
+        repositoryStoreProtocol.fetchRepositories(url: "<") { result in
+            switch result {
+            case .success( _): break
+            case .failure( let error ):
+                serviceErrorResult = error
+                expect.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: 1.2)
+
+        // Then
+        XCTAssertEqual(.urlInvalid, serviceErrorResult, "Test error is the same type")
+    }
+
+    func testFetchRepositoriesShouldReturnParseHtttpResponseError()
+    {
+        // Given
+        let urlSessionMock = URLSessionMock()
+        urlSessionMock.data = getJsonMock()
+
+        //When
+        repositoryStoreProtocol =  RepositoryAPI(urlSession: urlSessionMock)
+
         var serviceErrorResult: ServiceError!
         let expect = expectation(description: "Wait for fetchRepositories() to return")
         repositoryStoreProtocol.fetchRepositories(url: "fakeURL") { result in
@@ -129,8 +183,12 @@ class RepositoryAPITests: XCTestCase
     func testFetchRepositoriesShouldReturnApiError()
     {
         // Given
+        let urlSessionMock = URLSessionMock()
+        urlSessionMock.error = NSError(domain: "Error 404", code: 404, userInfo: [:])
+
         //When
-        setupFail(serviceError: .api(NSError(domain: "Error 404", code: 404, userInfo: [:])))
+        repositoryStoreProtocol =  RepositoryAPI(urlSession: urlSessionMock)
+
         var serviceErrorResult: ServiceError!
         let expect = expectation(description: "Wait for fetchRepositories() to return")
         repositoryStoreProtocol.fetchRepositories(url: "fakeURL") { result in
@@ -146,27 +204,5 @@ class RepositoryAPITests: XCTestCase
 
         // Then
         XCTAssertEqual(.api(NSError(domain: "Error 404", code: 404, userInfo: [:])), serviceErrorResult, "Test error is the same type")
-    }
-
-    func testFetchRepositoriesShouldReturnInvalidUrlError()
-       {
-           // Given
-           //When
-           setupFail(serviceError: .urlInvalid)
-           var serviceErrorResult: ServiceError!
-           let expect = expectation(description: "Wait for fetchRepositories() to return")
-           repositoryStoreProtocol.fetchRepositories(url: "fakeURL") { result in
-               switch result {
-               case .success( _): break
-               case .failure( let error ):
-                   serviceErrorResult = error
-                   expect.fulfill()
-               }
-           }
-
-           waitForExpectations(timeout: 1.2)
-
-        // Then
-        XCTAssertEqual(.urlInvalid, serviceErrorResult, "Test error is the same type")
     }
 }

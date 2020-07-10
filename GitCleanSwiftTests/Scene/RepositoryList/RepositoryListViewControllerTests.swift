@@ -95,7 +95,8 @@ class RepositoryListViewControllerTests: XCTestCase
     func test_FetchedRepositoriesStateIddle()
     {
 
-          XCTAssertEqual(repositoryListViewController.state, .idle)
+
+        XCTAssertEqual(repositoryListViewController.state, .idle)
         
 
     }
@@ -122,6 +123,18 @@ class RepositoryListViewControllerTests: XCTestCase
         // Then
         XCTAssertEqual(repositoryListViewController.state, .loadedPage)
     }
+
+
+    func test_ErrorDisplay()
+    {
+
+        let viewModel = RepositoryList.Error.ViewModel(errorString: "error")
+        repositoryListViewController.displayError(viewModel: viewModel)
+
+        // Then
+        XCTAssert(repositoryListViewController.showingAlert)
+    }
+
 
     func test_FetchedRepositoriesStateLoaded()
     {
