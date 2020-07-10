@@ -151,9 +151,20 @@ class RepositoryListViewControllerTests: XCTestCase
        }
 
 
+    func test_CellInitWithCoder() {
+        let someView = RepositoryCell(coder: NSCoder())
+        XCTAssertNil(someView)
+    }
+
+    func test_ViewControllerInitWithCoder() {
+           let someView = RepositoryListViewController(coder: NSCoder())
+           XCTAssertNil(someView)
+    }
+
     func test_ErrorDisplay()
     {
-
+        // Given
+        // When
         let viewModel = RepositoryList.Error.ViewModel(errorString: "error")
         repositoryListViewController.displayError(viewModel: viewModel)
 
@@ -244,10 +255,10 @@ class RepositoryListViewControllerTests: XCTestCase
             XCTAssertEqual(cell.starsLabel.text, "repoStarCount")
 
             cell.prepareForReuse()
-            XCTAssertEqual(cell.repositoryNameLabel.text, "")
+            XCTAssertEqual(cell.repositoryNameLabel.text, nil)
             XCTAssertEqual(cell.avatarImageView.image, nil)
-            XCTAssertEqual(cell.starsLabel.text, "")
-            XCTAssertEqual(cell.userNameLabel.text, "")
+            XCTAssertEqual(cell.starsLabel.text, nil)
+            XCTAssertEqual(cell.userNameLabel.text, nil)
             return
         }
 
