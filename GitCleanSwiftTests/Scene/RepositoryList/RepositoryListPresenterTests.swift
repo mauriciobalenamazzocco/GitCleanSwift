@@ -128,6 +128,32 @@ class RepositoryListPresenterTests: XCTestCase
         XCTAssertEqual(repository?.userProfilePath,"https://api.github.com/users/vsouza")
     }
 
+    func test_RepositoryStarsFormatLessThenThousand()
+    {
+        // Given
+        let repositoryListDisplayLogicSpy = RepositoryListDisplayLogicSpy()
+        repositoryListPresenter.viewController = repositoryListDisplayLogicSpy
+
+        // When
+
+        let testRepository = Repository(name: "name", starsCount: 900, owner: Owner(url: "", avatarUrl: ""))
+        let response = RepositoryList.FetchRepositories.Response(repositories: [testRepository], hasNext: false, isReloading: false)
+        repositoryListPresenter.presentRepositories(response: response)
+
+
+
+        let displayedRepositories = repositoryListDisplayLogicSpy.fetchRepositoriesViewModel.displayedRepositories
+
+
+        let repository = displayedRepositories.first
+
+        // Then
+
+        XCTAssertEqual(repository?.repoStarsCount," • ⭐️900")
+
+    }
+
+
     func test_ShouldReturnErrorTypeParse()
     {
         // Given
