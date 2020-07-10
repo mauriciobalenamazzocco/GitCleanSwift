@@ -134,7 +134,43 @@ class RepositoryAPITests: XCTestCase
 
         // Then
         XCTAssertEqual(.parse, serviceErrorResult, "Test error is the same type")
+        
     }
+
+
+    func test_fetchRepositoriesShouldReturnShouldReturnNotEqual()
+      {
+          // Given
+          let urlSessionMock = URLSessionMock()
+          urlSessionMock.data = getJsonMock()
+          urlSessionMock.urlResponse = HTTPURLResponse(
+              url: URL(string: RepositoryAPI.apiRepositoryPath )!,
+              statusCode: 200 ,
+              httpVersion: "",
+              headerFields: ["Link":"Link broken"])
+
+          // When
+
+          repositoryStoreProtocol =  RepositoryAPI(urlSession: urlSessionMock)
+
+
+          var serviceErrorResult: ServiceError!
+          let expect = expectation(description: "Wait for fetchRepositories() to return")
+          repositoryStoreProtocol.fetchRepositories(url: "fakeURL") { result in
+              switch result {
+              case .success( _): break
+              case .failure( let error ):
+                  serviceErrorResult = error
+                  expect.fulfill()
+              }
+          }
+
+          waitForExpectations(timeout: 1.2)
+
+          // Then
+        XCTAssertNotEqual(serviceErrorResult, .urlInvalid)
+
+      }
 
     func test_FetchRepositoriesShouldReturnParseError()
     {
