@@ -23,7 +23,6 @@ class RepositoryListViewControllerTests: XCTestCase
         super.setUp()
         window = UIWindow()
         setupRepositoryListViewController()
-   
     }
 
     override func tearDown()
@@ -66,11 +65,13 @@ class RepositoryListViewControllerTests: XCTestCase
         // MARK: Method call expectations
 
         var reloadDataCalled = false
+        var reloadCount = 0
 
         // MARK: Spied methods
 
         override func reloadData()
         {
+            reloadCount = reloadCount + 1
             reloadDataCalled = true
         }
     }
@@ -97,7 +98,6 @@ class RepositoryListViewControllerTests: XCTestCase
 
 
         XCTAssertEqual(repositoryListViewController.state, .idle)
-        
 
     }
 
@@ -123,7 +123,7 @@ class RepositoryListViewControllerTests: XCTestCase
         repositoryListViewController.viewDidAppear(true)
 
         // Then
-          XCTAssertEqual(repositoryListViewController.state, .loadingPage)
+        XCTAssertEqual(repositoryListViewController.state, .loadingPage)
     }
 
     func test_FetchedRepositoriesDisplay()
@@ -136,6 +136,19 @@ class RepositoryListViewControllerTests: XCTestCase
         // Then
         XCTAssertEqual(repositoryListViewController.state, .loadedPage)
     }
+
+    func test_FetchedRepositoriesIsReloading()
+       {
+        let tableViewSpy = TableViewSpy()
+            repositoryListViewController.tableView = tableViewSpy
+           let displayRepository = RepositoryList.FetchRepositories.ViewModel.DisplayedRepository(repoName: "repoName", userAvatarPath: "avatarName", repoStarsCount: "repoStarCount", userProfilePath: "userProfilePath")
+           let displayedRepositories = [displayRepository]
+           let viewModel = RepositoryList.FetchRepositories.ViewModel(displayedRepositories: displayedRepositories, isReloading: true, hasNext: false)
+           repositoryListViewController.displayRepositories(viewModel: viewModel)
+
+           // Then
+            XCTAssertEqual(tableViewSpy.reloadCount, 2)
+       }
 
 
     func test_ErrorDisplay()
@@ -165,8 +178,8 @@ class RepositoryListViewControllerTests: XCTestCase
         XCTAssert(tableViewSpy.reloadDataCalled, "Reloaded table view after display")
     }
 
-      func test_NumberOfSections()
-      {
+    func test_NumberOfSections()
+    {
         // Given
         let tableView = repositoryListViewController.tableView
 
@@ -175,10 +188,10 @@ class RepositoryListViewControllerTests: XCTestCase
 
         // Then
         XCTAssertEqual(numberOfSections, 1, "The number of table view sections should always be 1")
-      }
+    }
 
-      func test_NumberOfRows()
-      {
+    func test_NumberOfRows()
+    {
         // Given
         let tableView = repositoryListViewController.tableView
         let displayRepository = RepositoryList.FetchRepositories.ViewModel.DisplayedRepository(repoName: "repoName", userAvatarPath: "avatarName", repoStarsCount: "repoStarCount", userProfilePath: "userProfilePath")
@@ -191,7 +204,7 @@ class RepositoryListViewControllerTests: XCTestCase
 
         // Then
         XCTAssertEqual(numberOfRows, testDisplayedRepositories.count)
-      }
+    }
 
     func test_CellForRow()
     {
@@ -213,7 +226,7 @@ class RepositoryListViewControllerTests: XCTestCase
 
         XCTFail()
     }
-
+    
     func test_CellPrepareForReuse()
     {
         // Given
