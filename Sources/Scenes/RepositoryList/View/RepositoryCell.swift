@@ -107,15 +107,15 @@ class RepositoryCell: UITableViewCell, ClassIdentifiable {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        return nil
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         avatarImageView.image = nil
-        starsLabel.text = ""
-        repositoryNameLabel.text = ""
-        userNameLabel.text = ""
+        starsLabel.text = nil
+        repositoryNameLabel.text = nil
+        userNameLabel.text = nil
 
         if let requestToken = requestToken {
             requestToken.cancel()
