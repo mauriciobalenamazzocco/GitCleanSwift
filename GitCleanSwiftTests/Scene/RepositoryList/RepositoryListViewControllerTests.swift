@@ -73,8 +73,6 @@ class RepositoryListViewControllerTests: XCTestCase
         {
             reloadDataCalled = true
         }
-
-      
     }
 
     // MARK: - Tests
@@ -210,34 +208,6 @@ class RepositoryListViewControllerTests: XCTestCase
         if let cell = repositoryListViewController.tableView(tableView, cellForRowAt: indexPath) as? RepositoryCell {
             XCTAssertEqual(cell.repositoryNameLabel.text, "repoName")
             XCTAssertEqual(cell.starsLabel.text, "repoStarCount")
-            return
-        }
-
-        XCTFail()
-    }
-
-
-    func test_CellPrepareForReuse()
-    {
-        // Given
-        let tableView = repositoryListViewController.tableView
-        let displayRepository = RepositoryList.FetchRepositories.ViewModel.DisplayedRepository(repoName: "repoName", userAvatarPath: "avatarName", repoStarsCount: "repoStarCount", userProfilePath: "userProfilePath")
-        let testDisplayedRepositories = [displayRepository]
-        repositoryListViewController.displayedRepositories = testDisplayedRepositories
-
-        // When
-        let indexPath = IndexPath(row: 0, section: 0)
-
-        // Then
-        if let cell = repositoryListViewController.tableView(tableView, cellForRowAt: indexPath) as? RepositoryCell {
-            XCTAssertEqual(cell.repositoryNameLabel.text, "repoName")
-            XCTAssertEqual(cell.starsLabel.text, "repoStarCount")
-
-            cell.prepareForReuse()
-            XCTAssertEqual(cell.repositoryNameLabel.text, "")
-            XCTAssertEqual(cell.avatarImageView.image, nil)
-            XCTAssertEqual(cell.starsLabel.text, "")
-            XCTAssertEqual(cell.userNameLabel.text, "")
             return
         }
 
