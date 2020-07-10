@@ -70,9 +70,11 @@ class RepositoryListInteractorTests: XCTestCase
         var presentRepositoriesCalled = false
         var presentLoadingCalled = false
         var presentErrorCalled = false
+        var isReloadingCalled = false
 
         // MARK: Spied methods
         func presentRepositories(response: RepositoryList.FetchRepositories.Response) {
+            isReloadingCalled = response.isReloading
             presentRepositoriesCalled = true
         }
 
@@ -119,6 +121,26 @@ class RepositoryListInteractorTests: XCTestCase
         XCTAssert(repositoryListWorkerSpy.fetchRepositoryListCalled)
         XCTAssert(repositoryListPresentationLogicSpy.presentLoadingCalled)
         XCTAssert(repositoryListPresentationLogicSpy.presentRepositoriesCalled)
+    }
+
+    func test_FetchRepositoriesIsReloading()
+    {
+        // Given
+        let repositoryListPresentationLogicSpy = RepositoryListPresentationLogicSpy()
+        repositoryListInteractor.presenter = repositoryListPresentationLogicSpy
+
+        let repositoryListWorkerSpy = RepositoryListWorkerSpy(repositoriesStore: RepositoryAPI())
+
+        repositoryListInteractor.repositoryWorker = repositoryListWorkerSpy
+
+        // When
+        setupSucess()
+        let request = RepositoryList.FetchRepositories.Request(isReloading: true)
+        repositoryListInteractor.fetchRepositories(request: request)
+
+        // Then
+        XCTAssert(repositoryListPresentationLogicSpy.isReloadingCalled)
+     
     }
 
     func test_FetchRepositoriesError()
